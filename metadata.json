@@ -1,0 +1,6 @@
+{
+  "name": "AuraTask",
+  "description": "Smart AI-powered task and productivity manager with priorities, automatic insights, and streak tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
