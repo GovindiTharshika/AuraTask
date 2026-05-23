@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import coil.compose.AsyncImage
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -392,8 +393,8 @@ fun EmptyStateLayout() {
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.img_tasks_empty),
+            AsyncImage(
+                model = R.drawable.img_tasks_empty,
                 contentDescription = "No Tasks Match Illustration",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

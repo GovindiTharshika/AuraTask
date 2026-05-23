@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.R
 import com.example.ui.theme.PrimaryCyan
 import com.example.ui.theme.SecondaryPurple
@@ -80,8 +81,8 @@ fun SplashScreen(
         contentAlignment = Alignment.Center
     ) {
         // --- Full Background Splash Image (9:16 aspect) ---
-        Image(
-            painter = painterResource(id = R.drawable.img_splash_bg),
+        AsyncImage(
+            model = R.drawable.img_splash_bg,
             contentDescription = "Cosmic Splash Glow Background",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -125,8 +126,8 @@ fun SplashScreen(
                     .padding(8.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_aura_logo),
+                AsyncImage(
+                    model = R.drawable.ic_aura_logo,
                     contentDescription = "AuraTask Logo Image",
                     modifier = Modifier
                         .fillMaxSize()
