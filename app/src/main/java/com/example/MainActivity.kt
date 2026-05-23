@@ -41,24 +41,37 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 val authState by viewModel.authState.collectAsState()
+                var showSplash by remember { mutableStateOf(true) }
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     AnimatedContent(
-                        targetState = authState,
+                        targetState = showSplash,
                         transitionSpec = {
-                            fadeIn(animationSpec = tween(450)) togetherWith fadeOut(animationSpec = tween(450))
+                            fadeIn(animationSpec = tween(400)) togetherWith fadeOut(animationSpec = tween(400))
                         },
-                        label = "auth_screen_transition"
-                    ) { state ->
-                        if (state is AuthState.Authenticated) {
-                            // User is fully authenticated, display high-fidelity app workspace
-                            MainAppWorkspace(viewModel = viewModel)
+                        label = "splash_to_main_transition"
+                    ) { splashActive ->
+                        if (splashActive) {
+                            SplashScreen(onTimeout = { showSplash = false })
                         } else {
-                            // Show authentication form / Google credentials portal
-                            AuthScreen(viewModel = viewModel)
+                            AnimatedContent(
+                                targetState = authState,
+                                transitionSpec = {
+                                    fadeIn(animationSpec = tween(450)) togetherWith fadeOut(animationSpec = tween(450))
+                                },
+                                label = "auth_screen_transition"
+                            ) { state ->
+                                if (state is AuthState.Authenticated) {
+                                    // User is fully authenticated, display high-fidelity app workspace
+                                    MainAppWorkspace(viewModel = viewModel)
+                                } else {
+                                    // Show authentication form / Google credentials portal
+                                    AuthScreen(viewModel = viewModel)
+                                }
+                            }
                         }
                     }
                 }

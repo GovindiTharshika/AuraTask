@@ -2,6 +2,7 @@ package com.example.ui.screens
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -22,13 +23,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.Task
 import com.example.ui.theme.*
 import com.example.ui.viewmodel.MainViewModel
@@ -379,26 +383,39 @@ fun EmptyStateLayout() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Icon(
-            imageVector = Icons.Default.FilterNone,
-            contentDescription = "No tasks match",
-            tint = MaterialTheme.colorScheme.surfaceVariant,
-            modifier = Modifier.size(64.dp)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+        // Beautiful sleeping robot illustration to replace the standard empty icon
+        Box(
+            modifier = Modifier
+                .size(160.dp)
+                .clip(RoundedCornerShape(24.dp))
+                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.15f))
+                .padding(8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.img_tasks_empty),
+                contentDescription = "No Tasks Match Illustration",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(16.dp))
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "No Tasks Found",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            text = "No Tasks Active",
+            fontSize = 17.sp,
+            fontWeight = FontWeight.ExtraBold,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = "Try adjusting your category/priority filter tags, or tap the '+' icon above to construct something new today.",
-            fontSize = 13.sp,
+            text = "Your workspace cycle is completely clear! Select other priority tags, or tap the '+' icon to schedule a new execution plan.",
+            fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
-            lineHeight = 18.sp
+            lineHeight = 18.sp,
+            modifier = Modifier.widthIn(max = 280.dp)
         )
     }
 }
